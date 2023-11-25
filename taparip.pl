@@ -290,6 +290,10 @@ $edit_count++;});
                       ($attach_node ? $attach_node->content : '');
         my $sig = $post->at('.signature');
         my $signature = $sig ? $post->at('.signature')->content : undef;
+
+        $dbh->do('DELETE from posts where topic = ?', undef, $topic_id);
+        if ($dbh->err) { die "Unable to delete $topic_id: $dbh-err : $dbh->errstr \n"; }
+			
 #say "PID: $pid";
 #say "TOPICID: $topic_id";
 #say "COUNT: $count";
